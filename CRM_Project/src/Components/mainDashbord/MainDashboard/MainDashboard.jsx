@@ -8,7 +8,7 @@ import AdminDashboard from '../midContent/adminDashboard/AdminDashboard';
 
 const SIDEBAR_WIDTH = 260;
 const COLLAPSED_WIDTH = 64;
-const HEADER_HEIGHT = 90;
+const HEADER_HEIGHT = 80;
 
 const MainDashboard = () => {
   const [collapsed, setCollapsed] = React.useState(false);
