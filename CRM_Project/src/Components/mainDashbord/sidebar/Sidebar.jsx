@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Toolbar, Typography, Box, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,18 +24,13 @@ const menuItems = [
   { text: "Setting", icon: <SettingsIcon /> },
 ];
 
-
 const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
-  // Track active (clicked) menu item, default to Dashboard (index 0)
+  const navigate = useNavigate();
   const [activeIdx, setActiveIdx] = React.useState(0);
-  // Track hovered menu item for hover effect
   const [hoverIdx, setHoverIdx] = React.useState(null);
-  // Dropdown state for Clients
   const [clientDropdownOpen, setClientDropdownOpen] = React.useState(false);
-  // Track hovered/clicked dropdown item
   const [activeClientIdx, setActiveClientIdx] = React.useState(null);
 
-  // Dropdown list for Clients
   const clientList = [
     { label: 'Converted', value: 77 },
     { label: 'Demo', value: 700 },
@@ -47,6 +43,7 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
     { label: 'E-mails', value: 38 },
     { label: 'Later', value: 60 },
   ];
+
   const sidebarWidth = collapsed ? 64 : drawerWidth;
 
   return (
@@ -94,7 +91,7 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
         </Box>
       </Toolbar>
       <Divider />
-      <List style={{background: darkMode ? '#111828' : '#dff4ffff', margin:'0', borderRadius:'15px'}}>
+      <List style={{ background: darkMode ? '#111828' : '#dff4ffff', margin: '0', borderRadius: '15px' }}>
         {menuItems.map((item, idx) => {
           const isClients = item.text === 'Clients';
           const isActive = activeIdx === idx || hoverIdx === idx;
@@ -109,7 +106,7 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
                     ? (isActive ? '#DDE5F8' : '#111828')
                     : (isActive ? '#DDE5F8' : '#fff'),
                   marginBottom: '7px',
-                  height: `${Math.round(73 * 0.6 * 1.1)}px`, // 10% more height
+                  height: `${Math.round(73 * 0.6 * 1.1)}px`,
                   width: '98%',
                   cursor: 'pointer',
                   position: 'relative',
@@ -123,8 +120,10 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
                 onMouseEnter={() => setHoverIdx(idx)}
                 onMouseLeave={() => setHoverIdx(null)}
                 onClick={() => {
-                  if (isClients) setClientDropdownOpen((open) => !open);
                   setActiveIdx(idx);
+                  if (item.text === "Dashboard") navigate('/mainDashboard');
+                  else if (item.text === "All Lead's") navigate('/mainDashboard/allLead');
+                  else if (item.text === "Clients") setClientDropdownOpen(open => !open);
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center' }} style={{ color: isActive ? '#688CE2' : (darkMode ? '#fff' : 'black') }}>{item.icon}</ListItemIcon>
@@ -135,7 +134,7 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
                   </Box>
                 )}
               </ListItem>
-              {/* Dropdown for Clients */}
+
               {isClients && clientDropdownOpen && !collapsed && (
                 <Box sx={{
                   pl: 6,
@@ -183,8 +182,8 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ mb: 2 }}>
         <List>
-          <ListItem 
-            button 
+          <ListItem
+            button
             sx={{ justifyContent: 'center', px: 2 }}
             style={{
               borderRadius: '13px',
@@ -199,13 +198,17 @@ const Sidebar = ({ collapsed, setCollapsed, darkMode }) => {
               fontWeight: 400,
             }}
           >
-            <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff !important' : '#000 !important' }}><LogoutIcon /></ListItemIcon>
-            {!collapsed && <ListItemText primary="Logout" sx={{ ml: 2, color: darkMode ? '#fff !important' : '#000 !important' }} />}
+            <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff !important' : '#000 !important' }}>
+              <LogoutIcon />
+            </ListItemIcon>
+            {!collapsed && (
+              <ListItemText primary="Logout" sx={{ ml: 2, color: darkMode ? '#fff !important' : '#000 !important' }} />
+            )}
           </ListItem>
         </List>
       </Box>
     </Drawer>
   );
-}
+};
 
 export default Sidebar;

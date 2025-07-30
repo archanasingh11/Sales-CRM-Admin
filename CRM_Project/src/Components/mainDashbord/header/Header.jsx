@@ -23,7 +23,7 @@ const Header = ({ darkMode, setDarkMode }) => {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" style={{
-          background: darkMode ? '#111828' : '#fff',
+          background: darkMode ? '#000' : '#fff',
           boxShadow: 'none',
           borderBottom: darkMode ? '2px solid #fff' : '1px solid black'
         }}>
