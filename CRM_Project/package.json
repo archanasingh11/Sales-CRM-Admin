@@ -13,7 +13,10 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.2.0",
+<<<<<<< HEAD
     "@mui/joy": "^5.0.0-beta.52",
+=======
+>>>>>>> e88e52abd567e5f82590d82f431fd32beb7d4af3
     "@mui/material": "^7.2.0",
     "@tanstack/react-query": "^5.83.0",
     "axios": "^1.10.0",
@@ -22,9 +25,13 @@
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
+<<<<<<< HEAD
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.7.0",
     "recharts": "^3.1.0",
+=======
+    "react-router-dom": "^7.7.0",
+>>>>>>> e88e52abd567e5f82590d82f431fd32beb7d4af3
     "zustand": "^5.0.6"
   },
   "devDependencies": {

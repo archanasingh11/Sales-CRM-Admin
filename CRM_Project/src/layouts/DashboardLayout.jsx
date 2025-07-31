@@ -20,8 +20,11 @@ import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+<<<<<<< HEAD
 import { IoMdMenu } from "react-icons/io";
 import { GrCubes } from "react-icons/gr";
+=======
+>>>>>>> e88e52abd567e5f82590d82f431fd32beb7d4af3
 
 const drawerWidth = 240;
 
@@ -60,6 +63,7 @@ const DashboardLayout = ({ children }) => {
           <Typography variant="h6" sx={{ pl: 2, fontWeight: 'bold' }}>Gold CRM</Typography>
         </Toolbar>
         <Divider />
+<<<<<<< HEAD
         <List >
           {/* This is where you can change the sidebar options */}
           <IoMdMenu style={{
@@ -78,6 +82,13 @@ const DashboardLayout = ({ children }) => {
                 width:'24px',
                 height:'24px'
                 }}/></ListItemIcon>
+=======
+        <List>
+          {/* This is where you can change the sidebar options */}
+          <ListItem disablePadding>
+            <ListItemButton selected>
+              <ListItemIcon><AllInboxIcon /></ListItemIcon>
+>>>>>>> e88e52abd567e5f82590d82f431fd32beb7d4af3
               <ListItemText primary="All CRM" />
             </ListItemButton>
           </ListItem>
