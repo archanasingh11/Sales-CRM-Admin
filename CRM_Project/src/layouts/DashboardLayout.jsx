@@ -1,6 +1,8 @@
 // src/layouts/DashboardLayout.jsx
 
-import React from 'react';
+import React, { createContext, useState } from 'react';
+// Create DarkModeContext
+export const DarkModeContext = createContext(false);
 import {
   Box,
   Drawer,
@@ -27,17 +29,21 @@ const drawerWidth = 240;
 
 // This is your reusable layout
 const DashboardLayout = ({ children }) => {
+  // State for dark mode
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <Box sx={{ display: 'flex' }}>
+    <DarkModeContext.Provider value={darkMode}>
+      <Box sx={{ display: 'flex' }}>
       {/* Header */}
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, backgroundColor: '#fff', color: '#000' }}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, backgroundColor: darkMode ? '#111828' : '#fff', color: darkMode ? '#fff' : '#000' }}
         elevation={1}
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }} />
-          <IconButton>
+          <IconButton onClick={() => setDarkMode((prev) => !prev)}>
             <LightModeIcon />
           </IconButton>
           <IconButton>
@@ -103,12 +109,13 @@ const DashboardLayout = ({ children }) => {
       {/* Main Content Area */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: darkMode ? '#111828' : 'background.default', p: 3 }}
       >
         <Toolbar /> {/* Spacer for AppBar */}
         {children} {/* Your page-specific content will render here! */}
       </Box>
-    </Box>
+      </Box>
+    </DarkModeContext.Provider>
   );
 };
 
