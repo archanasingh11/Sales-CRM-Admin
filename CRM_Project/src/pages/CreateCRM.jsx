@@ -34,6 +34,16 @@ const CreateCrmPage = () => {
   
   // State for showing/hiding the color picker
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [selectedBuckets, setSelectedBuckets] = useState([]);
+
+  // Toggle selection of a bucket
+  const handleSelectBucket = (label) => {
+    setSelectedBuckets((prev) =>
+      prev.includes(label)
+        ? prev.filter((l) => l !== label)
+        : [...prev, label]
+    );
+  };
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
@@ -42,17 +52,16 @@ const CreateCrmPage = () => {
   };
 
   const handleAddNewBucket = () => {
-    if (!newBucketName) return; // Basic validation
-    
+    if (!newBucketName) return;
     const newDisposition = {
       label: newBucketName,
       color: `rgba(${newBucketColor.r}, ${newBucketColor.g}, ${newBucketColor.b}, ${newBucketColor.a})`,
       borderColor: `rgba(${newBucketColor.r}, ${newBucketColor.g}, ${newBucketColor.b}, 1)`,
     };
-
     setDispositions([...dispositions, newDisposition]);
-    setNewBucketName(''); // Reset form
-    handleClose(); // Close the modal
+    setSelectedBuckets([...selectedBuckets, newBucketName]); // Auto-select new bucket
+    setNewBucketName('');
+    handleClose();
   };
 
   return (
@@ -74,8 +83,46 @@ const CreateCrmPage = () => {
       <Grid container spacing={3} sx={{ px: 2 }}>
         {dispositions.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={item.label}>
-            <Paper variant="outlined" sx={{ p: 3, textAlign: 'center', borderRadius: '16px', cursor: 'pointer', backgroundColor: item.color, borderColor: item.borderColor, '&:hover': { boxShadow: 3 } }}>
-              <Typography variant="subtitle1" fontWeight="500">{item.label}</Typography>
+            <Paper
+              variant="outlined"
+              onClick={() => handleSelectBucket(item.label)}
+              sx={{
+                p: 3,
+                textAlign: 'center',
+                borderRadius: '16px',
+                cursor: 'pointer',
+                backgroundColor: item.color,
+                borderColor: selectedBuckets.includes(item.label)
+                  ? 'primary.main'
+                  : item.borderColor,
+                borderWidth: selectedBuckets.includes(item.label) ? 3 : 1,
+                borderStyle: 'solid',
+                boxShadow: selectedBuckets.includes(item.label) ? 6 : 1,
+                '&:hover': { boxShadow: 3 },
+                position: 'relative',
+              }}
+            >
+              <Typography variant="subtitle1" fontWeight="500">
+                {item.label}
+              </Typography>
+              {selectedBuckets.includes(item.label) && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 8,
+                    right: 8,
+                    width: 20,
+                    height: 20,
+                    bgcolor: 'primary.main',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <span style={{ color: '#fff', fontWeight: 'bold' }}>✓</span>
+                </Box>
+              )}
             </Paper>
           </Grid>
         ))}
