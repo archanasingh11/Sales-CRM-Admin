@@ -37,6 +37,7 @@ import MainDashboard from './Components/mainDashbord/MainDashboard/MainDashboard
 import AdminDashboard from './Components/mainDashbord/midContent/adminDashboard/AdminDashboard';
 import AllLeads from './Components/mainDashbord/midContent/AllLeads/AllLeads';
 import LeadDetails from './Components/mainDashbord/MainDashboard/leadDetails/LeadDetails';
+import Clients from './Components/mainDashbord/midContent/clients/Clients';
 
 const theme = createTheme({
   palette: {
@@ -109,6 +110,8 @@ function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="allLead" element={<AllLeads />} />
             <Route path="lead-details/:id" element={<LeadDetails />} />
+            <Route path="/mainDashboard/clients/:type" element={<Clients />} />
+
           </Route>
 
         </Routes>
