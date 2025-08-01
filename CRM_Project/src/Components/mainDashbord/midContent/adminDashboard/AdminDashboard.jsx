@@ -4,6 +4,10 @@ import convertedImg from '../../../../assets/convertedIcon.png';
 import busyImg from '../../../../assets/busyIcon.png';
 import dnpImg from '../../../../assets/dnpIcon.png';
 import React from 'react';
+
+
+import { useOutletContext } from 'react-router-dom';
+
 import {
   BarChart,
   Bar,
@@ -123,7 +127,12 @@ const Box4 = ({ width, height, darkMode }) => (
   </div>
 );
 
+
 const AdminDashboard = ({ sidebarCollapsed, darkMode }) => {
+
+const AdminDashboard = () => {
+  const { darkMode, sidebarCollapsed } = useOutletContext();
+
   // Line chart data: conversion rate per month (random numbers under 100)
   const lineData = [
     { month: 'Jan', rate: 45 },
@@ -170,7 +179,11 @@ const AdminDashboard = ({ sidebarCollapsed, darkMode }) => {
   ];
 
   return (
+
    <div style={{ background: darkMode ? '#111828' : '#fff', color: darkMode ? '#fff' : '#000', minHeight: '100vh' }}>
+
+   <div style={{ background: darkMode ? '#040813' : '#fff', color: darkMode ? '#fff' : '#000', minHeight: '100vh' }}>
+
     <div
       style={{
         display: 'grid',
@@ -209,11 +222,18 @@ const AdminDashboard = ({ sidebarCollapsed, darkMode }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" tick={{ fill: darkMode ? '#fff' : '#000', fontWeight: 500, fontSize: 12 }} />
             <YAxis tick={{ fill: darkMode ? '#fff' : '#000', fontWeight: 500, fontSize: 12 }} />
+
             <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#fff' : '#fff', color: '#000' }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
+            <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#111828' : '#fff', color: '#000', borderRadius: 8 }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
             <Bar dataKey="converted" fill="#5BB6F9" barSize={13} radius={[10, 10, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+
+
 
 
       {/* PieChart */}
@@ -239,13 +259,21 @@ const AdminDashboard = ({ sidebarCollapsed, darkMode }) => {
               nameKey="name"
               cx="50%"
               cy="50%"
+
               outerRadius={90}
+
+              outerRadius={130}
+
             >
               {pieData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
+
             <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#fff' : '#fff', color: '#000' }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
+            <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#111828' : '#fff', color: '#000', borderRadius: 8 }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
             <Legend
               payload={[pieData[0], pieData[1], pieData[2], pieData[3]].map(item => ({
                 value: `${item.name} (${item.value})`,
@@ -272,7 +300,11 @@ const AdminDashboard = ({ sidebarCollapsed, darkMode }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" tick={{ fill: darkMode ? '#fff' : '#000', fontWeight: 500, fontSize: 12 }} />
           <YAxis tick={{ fill: darkMode ? '#fff' : '#000', fontWeight: 500, fontSize: 12 }} />
+
           <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#fff' : '#fff', color: '#000' }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
+          <Tooltip wrapperStyle={{ backgroundColor: darkMode ? '#111828' : '#fff', color: '#000', borderRadius: 8 }} labelStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} />
+
           <Line type="monotone" dataKey="rate" stroke="#10B981" strokeWidth={3} dot={{ r: 5, stroke: '#10B981', strokeWidth: 2, fill: darkMode ? '#111828' : '#fff' }} activeDot={{ r: 7 }} />
         </LineChart>
       </ResponsiveContainer>
