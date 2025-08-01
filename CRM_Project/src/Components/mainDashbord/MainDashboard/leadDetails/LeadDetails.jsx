@@ -65,7 +65,7 @@ const LeadDetails = () => {
   return (
     <div
       style={{
-        margin: '40px',
+        marginLeft: '40px',
         backgroundColor: darkMode ? '#040813' : '#f9f9f9',
         color: darkMode ? '#fff' : '#000',
         padding: 20,

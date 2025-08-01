@@ -71,7 +71,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           zIndex: 1200,
           border: darkMode ? '1px solid #fff' : '1px solid white',
           borderRadius: '10px 15px 10px 10px',
-          // Custom scrollbar for dark mode
           ...(darkMode && {
             scrollbarColor: '#888 #040813',
             scrollbarWidth: 'thin',
@@ -107,11 +106,10 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         </Box>
       </Toolbar>
       <Divider />
-      <List style={{ background: darkMode ? '#040813' : '#dff4ffff', margin: '0', borderRadius: '15px' }}>
+      <List style={{ background: darkMode ? '#040813' : '#dff4ffff', margin: '0', borderRadius: '15px', }}>
         {menuItems.map((item, idx) => {
           const isClients = item.text === 'Clients';
           const isActive = activeIdx === idx || hoverIdx === idx;
-          // Effects: always use light mode effect colors for hover/click, even in dark mode
           const effectBackground = isActive ? '#DDE5F8' : (darkMode ? '#111828' : '#fff');
           const effectBorder = isActive ? '2px solid #688CE2' : (darkMode ? '2px solid #fff' : 'none');
           const effectText = isActive ? '#688CE2' : (darkMode ? '#fff' : 'black');
@@ -144,7 +142,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff' : (isActive ? '#688CE2' : 'black') }}>
-                  {/* Icon color: #688CE2 if active/hovered, else white in dark mode, else black in light mode */}
                   {React.cloneElement(item.icon, { style: { color: isActive ? '#688CE2' : (darkMode ? '#fff' : 'black') } })}
                 </ListItemIcon>
                 {!collapsed && (
@@ -179,15 +176,17 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         mb: 0.5,
                         cursor: 'pointer',
                         color: activeClientIdx === cidx ? '#3D9AFF' : (darkMode ? '#fff' : '#222'),
-                        fontWeight: 500,
+                        fontWeight: activeClientIdx === cidx ? 600 : 500,
                         fontSize: '15px',
-                        background: 'transparent',
+                        background: activeClientIdx === cidx ? '#E6F3FF' : 'transparent',
                         border: 'none',
-                        transition: 'color 0.2s',
+                        transition: 'all 0.2s',
+                        '&:hover': { color: '#3D9AFF', background: '#E6F3FF' }
                       }}
-                      onMouseEnter={() => setActiveClientIdx(cidx)}
-                      onMouseLeave={() => setActiveClientIdx(null)}
-                      onClick={() => setActiveClientIdx(cidx)}
+                      onClick={() => {
+                        setActiveClientIdx(cidx);
+                        navigate(`/mainDashboard/clients/${encodeURIComponent(client.label)}`);
+                      }}
                     >
                       <span style={{ flex: 1 }}>{client.label}</span>
                       <span style={{ fontWeight: 500, marginLeft: 8 }}>{client.value}</span>

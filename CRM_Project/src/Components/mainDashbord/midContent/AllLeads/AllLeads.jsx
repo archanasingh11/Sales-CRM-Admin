@@ -18,7 +18,7 @@ const AllLeads = () => {
   const leads = [
     { _id: '1', company: 'THREE STAR MARINE EXPORTS', name: 'Rama Swami', status: 'Converted' },
     { _id: '2', company: 'BLUE OCEAN TRADERS', name: 'Priya Verma', status: 'Interested' },
-    { _id: '3', company: 'SUNRISE EXPORTS', name: 'Ravi Kumar', status: 'Pending' }
+    { _id: '3', company: 'SUNRISE EXPORTS', name: 'Ravi Kumar', status: 'Busy' }
   ];
 
   return (
