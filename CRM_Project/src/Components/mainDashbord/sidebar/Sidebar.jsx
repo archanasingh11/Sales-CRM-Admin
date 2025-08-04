@@ -2,7 +2,18 @@ import * as React from 'react';
 import { useDarkMode } from '../../../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Toolbar, Typography, Box, Divider } from '@mui/material';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Toolbar,
+  Typography,
+  Box,
+  Divider,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
@@ -25,7 +36,7 @@ const menuItems = [
   { text: "Setting", icon: <SettingsIcon /> },
 ];
 
-const Sidebar = ({ collapsed, setCollapsed }) => {
+const Sidebar = ({ collapsed, setCollapsed, selectedClient, onSelectClient }) => {
   const { darkMode } = useDarkMode();
   const navigate = useNavigate();
   const [activeIdx, setActiveIdx] = React.useState(0);
@@ -71,21 +82,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           zIndex: 1200,
           border: darkMode ? '1px solid #fff' : '1px solid white',
           borderRadius: '10px 15px 10px 10px',
-          ...(darkMode && {
-            scrollbarColor: '#888 #040813',
-            scrollbarWidth: 'thin',
-            '&::-webkit-scrollbar': {
-              width: '8px',
-              background: '#040813',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#888',
-              borderRadius: '8px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: '#040813',
-            },
-          }),
         },
       }}
     >
@@ -93,20 +89,19 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center' }}>
           {!collapsed ? (
             <>
-              <MenuIcon style={{ color: darkMode ? '#fff' : 'black', marginRight: 95, cursor: 'pointer' }} onClick={() => setCollapsed((prev) => !prev)} />
-              <Typography variant="h6" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'center', color: darkMode ? '#fff' : 'black' }}>
-                Gold CRM
-              </Typography>
+              <MenuIcon style={{ color: darkMode ? '#fff' : 'black', marginRight: 95, cursor: 'pointer' }} onClick={() => setCollapsed(prev => !prev)} />
+              <Typography variant="h6" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', color: darkMode ? '#fff' : 'black' }}>Gold CRM</Typography>
             </>
           ) : (
-            <IconButton onClick={() => setCollapsed((prev) => !prev)}>
+            <IconButton onClick={() => setCollapsed(prev => !prev)}>
               <MenuIcon style={{ color: darkMode ? '#fff' : 'black' }} />
             </IconButton>
           )}
         </Box>
       </Toolbar>
       <Divider />
-      <List style={{ background: darkMode ? '#040813' : '#dff4ffff', margin: '0', borderRadius: '15px', }}>
+
+      <List sx={{ background: darkMode ? '#040813' : '#dff4ffff', borderRadius: '15px' }}>
         {menuItems.map((item, idx) => {
           const isClients = item.text === 'Clients';
           const isActive = activeIdx === idx || hoverIdx === idx;
@@ -138,16 +133,17 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                   setActiveIdx(idx);
                   if (item.text === "Dashboard") navigate('/mainDashboard');
                   else if (item.text === "All Lead's") navigate('/mainDashboard/allLead');
-                  else if (item.text === "Clients") setClientDropdownOpen((open) => !open);
+                  else if (item.text === "Clients") setClientDropdownOpen(open => !open);
+                  else if (item.text === "Agents") navigate('/mainDashboard/agents');
                 }}
               >
-                <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff' : (isActive ? '#688CE2' : 'black') }}>
-                  {React.cloneElement(item.icon, { style: { color: isActive ? '#688CE2' : (darkMode ? '#fff' : 'black') } })}
+                <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff' : effectText }}>
+                  {React.cloneElement(item.icon, { style: { color: effectText } })}
                 </ListItemIcon>
                 {!collapsed && (
                   <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                    <ListItemText primary={item.text} sx={{ ml: 2, color: isActive ? '#688CE2' : (darkMode ? '#fff' : 'black') }} />
-                    {isClients && <ArrowDropDownIcon style={{ marginLeft: 8, color: isActive ? '#688CE2' : (darkMode ? '#fff' : '#3D9AFF') }} />}
+                    <ListItemText primary={item.text} sx={{ ml: 2, color: effectText }} />
+                    {isClients && <ArrowDropDownIcon style={{ marginLeft: 8, color: effectText }} />}
                   </Box>
                 )}
               </ListItem>
@@ -157,12 +153,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                   pl: 6,
                   pr: 2,
                   py: 1,
-                  background: darkMode ? '#111828' : (activeIdx === idx ? '#DDE5F8' : 'white'),
-                  borderRadius: '13px 15px 13px 13px',
+                  background: darkMode ? '#111828' : '#fff',
+                  borderRadius: '13px',
                   boxShadow: '0 2px 8px rgba(104,140,226,0.08)',
                   mt: 1,
                   mb: 1,
-                  border: darkMode ? '1px solid white' : (activeIdx === idx ? '2px solid #688CE2' : 'none')
                 }}>
                   {clientList.map((client, cidx) => (
                     <Box
@@ -179,12 +174,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         fontWeight: activeClientIdx === cidx ? 600 : 500,
                         fontSize: '15px',
                         background: activeClientIdx === cidx ? '#E6F3FF' : 'transparent',
-                        border: 'none',
-                        transition: 'all 0.2s',
-                        '&:hover': { color: '#3D9AFF', background: '#E6F3FF' }
+                        '&:hover': { color: '#3D9AFF', background: '#E6F3FF' },
                       }}
                       onClick={() => {
                         setActiveClientIdx(cidx);
+                        if (onSelectClient) onSelectClient(client.label);
                         navigate(`/mainDashboard/clients/${encodeURIComponent(client.label)}`);
                       }}
                     >
@@ -198,7 +192,9 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           );
         })}
       </List>
+
       <Box sx={{ flexGrow: 1 }} />
+
       <Box sx={{ mb: 2 }}>
         <List>
           <ListItem
@@ -211,10 +207,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
               width: '98%',
               cursor: 'pointer',
               position: 'relative',
-              border: 'none',
               color: darkMode ? '#fff' : '#000',
               fontWeight: 400,
-              transition: 'all 0.2s',
             }}
           >
             <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center', color: darkMode ? '#fff' : '#000' }}>

@@ -13,6 +13,8 @@ import AdminDashboard from './Components/mainDashbord/midContent/adminDashboard/
 import AllLeads from './Components/mainDashbord/midContent/AllLeads/AllLeads';
 import LeadDetails from './Components/mainDashbord/MainDashboard/leadDetails/LeadDetails';
 import Clients from './Components/mainDashbord/midContent/clients/Clients';
+import AgentsList from './Components/mainDashbord/midContent/Agents/AgentsList';
+import AgentReport from './Components/mainDashbord/midContent/Agents/AgentReports';
 
 const theme = createTheme({
   palette: {
@@ -51,6 +53,8 @@ function App() {
             <Route path="allLead" element={<AllLeads />} />
             <Route path="lead-details/:id" element={<LeadDetails />} />
             <Route path="/mainDashboard/clients/:type" element={<Clients />} />
+            <Route path="agents" element={<AgentsList />} />
+            <Route path="agent-reports" element={<AgentReport />} />
 
           </Route>
         </Routes>
