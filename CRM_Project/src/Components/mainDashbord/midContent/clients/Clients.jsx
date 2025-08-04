@@ -69,11 +69,11 @@ const Clients = () => {
           }}
         />
 
-        {/* Icon inside circle */}
+        {/* Search Icon */}
         <Box
           sx={{
-            width: 32.25,
-            height: 32.25,
+            width: 32,
+            height: 32,
             backgroundColor: '#C2E9FB',
             borderRadius: '50%',
             display: 'flex',
@@ -85,10 +85,10 @@ const Clients = () => {
         </Box>
       </Box>
 
-      {/* Client Boxes */}
-      {[1, 2, 3].map((item) => (
+      {/* Client Cards */}
+      {Array.from({ length: 3 }).map((_, index) => (
         <Box
-          key={item}
+          key={index}
           sx={{
             width: '80%',
             height: 135,
@@ -103,10 +103,9 @@ const Clients = () => {
             px: 3,
           }}
         >
-          {/* Left Content */}
+          {/* Client Details */}
           <Box>
             <Typography
-              variant="h2"
               sx={{
                 fontSize: 20,
                 letterSpacing: '0.15em',
@@ -117,19 +116,17 @@ const Clients = () => {
               THREE STAR MARINE EXPORTS
             </Typography>
             <Typography
-              variant="h5"
               sx={{
                 fontSize: 16,
                 letterSpacing: '0.1em',
                 fontWeight: 500,
-                marginTop: 1,
+                mt: 1,
                 color: darkMode ? '#fff' : '#000',
               }}
             >
               Name : Rama Swami
             </Typography>
             <Typography
-              variant="h5"
               sx={{
                 fontSize: 16,
                 letterSpacing: '0.1em',
@@ -137,12 +134,13 @@ const Clients = () => {
                 color: darkMode ? '#fff' : '#000',
               }}
             >
-              Status : Converted
+              Status : {type}
             </Typography>
           </Box>
 
-          {/* Right Button */}
+          {/* View Button */}
           <Button
+            onClick={() => navigate(`/mainDashboard/lead-details/${index + 1}`)}
             sx={{
               width: 155,
               height: 45,
@@ -154,7 +152,6 @@ const Clients = () => {
               fontWeight: 600,
               fontSize: 16,
             }}
-            onClick={() => navigate(`/mainDashboard/lead-details/${item}`)}
           >
             View
           </Button>
