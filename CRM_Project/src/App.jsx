@@ -13,7 +13,8 @@ import AdminDashboard from './Components/mainDashbord/midContent/adminDashboard/
 import AllLeads from './Components/mainDashbord/midContent/AllLeads/AllLeads';
 import LeadDetails from './Components/mainDashbord/MainDashboard/leadDetails/LeadDetails';
 import Clients from './Components/mainDashbord/midContent/clients/Clients';
-// ✅ No longer need to import DarkModeProvider here
+import AgentsList from './Components/mainDashbord/midContent/Agents/AgentsList';
+import AgentReport from './Components/mainDashbord/midContent/Agents/AgentReports';
 
 // MUI Theme Configuration
 const theme = createTheme({
@@ -35,7 +36,6 @@ const theme = createTheme({
 
 function App() {
   return (
-    // ✅ Provider was removed from here
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
@@ -54,6 +54,8 @@ function App() {
             <Route path="allLead" element={<AllLeads />} />
             <Route path="lead-details/:id" element={<LeadDetails />} />
             <Route path="clients/:type" element={<Clients />} />
+            <Route path="agents" element={<AgentsList />} />
+            <Route path="agent-reports" element={<AgentReport />} />
           </Route>
         </Routes>
       </Router>

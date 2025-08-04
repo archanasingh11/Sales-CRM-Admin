@@ -14,7 +14,6 @@ import {
   Divider,
 } from '@mui/material';
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
@@ -24,18 +23,9 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const drawerWidth = 260;
-
-const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon /> },
-  { text: "All Lead's", icon: <PeopleIcon /> },
-  { text: 'Clients', icon: <GroupIcon /> },
-  { text: 'Agents', icon: <PersonIcon /> },
-  { text: 'Reports & analytics', icon: <BarChartIcon /> },
-  { text: 'Add Lead', icon: <AddCircleIcon /> },
-  { text: 'Setting', icon: <SettingsIcon /> },
-];
 
 const clientList = [
   { label: 'Converted', value: 77 },
@@ -48,6 +38,16 @@ const clientList = [
   { label: 'Wrong Number', value: 87 },
   { label: 'E-mails', value: 38 },
   { label: 'Later', value: 60 },
+];
+
+const menuItems = [
+  { text: 'Dashboard', icon: <DashboardIcon /> },
+  { text: "All Lead's", icon: <PeopleIcon /> },
+  { text: 'Clients', icon: <GroupIcon /> },
+  { text: 'Agents', icon: <PersonIcon /> },
+  { text: 'Reports & analytics', icon: <BarChartIcon /> },
+  { text: 'Add Lead', icon: <AddCircleIcon /> },
+  { text: 'Setting', icon: <SettingsIcon /> },
 ];
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
@@ -85,13 +85,14 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         },
       }}
     >
+      {/* Top Bar */}
       <Toolbar sx={{ minHeight: 56, px: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center' }}>
           <IconButton onClick={() => setCollapsed((prev) => !prev)}>
             <MenuIcon style={{ color: darkMode ? '#fff' : '#000' }} />
           </IconButton>
           {!collapsed && (
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: darkMode ? '#fff' : '#000' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: darkMode ? '#fff' : '#000', ml: 2 }}>
               Gold CRM
             </Typography>
           )}
@@ -100,6 +101,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
       <Divider />
 
+      {/* Menu Items */}
       <List sx={{ background: darkMode ? '#111828' : '#dff4ff', borderRadius: '15px' }}>
         {menuItems.map((item, idx) => {
           const isClients = item.text === 'Clients';
@@ -116,6 +118,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                   if (item.text === 'Dashboard') navigate('/mainDashboard');
                   else if (item.text === "All Lead's") navigate('/mainDashboard/allLead');
                   else if (item.text === 'Clients') setClientDropdownOpen((open) => !open);
+                  else if (item.text === 'Agents') navigate('/mainDashboard/agents');
                 }}
                 sx={{
                   borderRadius: '13px',
@@ -145,6 +148,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 )}
               </ListItem>
 
+              {/* Client Dropdown */}
               {isClients && clientDropdownOpen && !collapsed && (
                 <Box
                   sx={{
@@ -172,8 +176,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                         cursor: 'pointer',
                         fontSize: '15px',
                         fontWeight: activeClientIdx === cidx ? 600 : 500,
-                        background: activeClientIdx === cidx ? '#E6F3FF' : 'transparent',
                         color: activeClientIdx === cidx ? '#3D9AFF' : darkMode ? '#fff' : '#222',
+                        background: activeClientIdx === cidx ? '#E6F3FF' : 'transparent',
                         '&:hover': {
                           color: '#3D9AFF',
                           background: '#E6F3FF',

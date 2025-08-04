@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Typography, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useDarkMode } from '../../../../context/DarkModeContext';
 
 const clientCounts = {
   Converted: 77,
@@ -20,6 +21,7 @@ const Clients = () => {
   const { type } = useParams();
   const navigate = useNavigate();
   const count = clientCounts[type] || 0;
+  const { darkMode } = useDarkMode();
 
   return (
     <Box sx={{ pl: 3 }}>
@@ -31,6 +33,7 @@ const Clients = () => {
           mt: 3,
           ml: '30px',
           fontWeight: 500,
+          color: darkMode ? '#fff' : '#000',
         }}
       >
         {type} - {count}
@@ -41,7 +44,7 @@ const Clients = () => {
         sx={{
           width: '900px',
           height: '48px',
-          backgroundColor: '#fff',
+          backgroundColor: darkMode ? '#111828' : '#fff',
           border: '2px solid #5BB6F9',
           borderRadius: '50px',
           display: 'flex',
@@ -62,6 +65,7 @@ const Clients = () => {
             outline: 'none',
             fontSize: '16px',
             backgroundColor: 'transparent',
+            color: darkMode ? 'white' : 'black',
           }}
         />
 
@@ -88,7 +92,7 @@ const Clients = () => {
           sx={{
             width: '80%',
             height: 135,
-            backgroundColor: '#fff',
+            backgroundColor: darkMode ? '#111828' : '#fff',
             border: '2px solid #688CE2',
             borderRadius: '5px',
             mb: 3,
@@ -106,6 +110,7 @@ const Clients = () => {
                 fontSize: 20,
                 letterSpacing: '0.15em',
                 fontWeight: 500,
+                color: darkMode ? '#fff' : '#000',
               }}
             >
               THREE STAR MARINE EXPORTS
@@ -116,6 +121,7 @@ const Clients = () => {
                 letterSpacing: '0.1em',
                 fontWeight: 500,
                 mt: 1,
+                color: darkMode ? '#fff' : '#000',
               }}
             >
               Name : Rama Swami
@@ -125,6 +131,7 @@ const Clients = () => {
                 fontSize: 16,
                 letterSpacing: '0.1em',
                 fontWeight: 500,
+                color: darkMode ? '#fff' : '#000',
               }}
             >
               Status : {type}
