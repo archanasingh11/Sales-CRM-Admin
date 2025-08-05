@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useOutletContext } from 'react-router-dom'; // ❌ No longer needed
-import { useDarkMode } from '../../../../context/DarkModeContext'; // ✅ Import the custom hook
+// import { useOutletContext } from 'react-router-dom';
+import { useDarkMode } from '../../../../context/DarkModeContext';
 import {
   BarChart,
   Bar,
@@ -22,7 +22,6 @@ import convertedImg from '../../../../assets/convertedIcon.png';
 import busyImg from '../../../../assets/busyIcon.png';
 import dnpImg from '../../../../assets/dnpIcon.png';
 
-// ... (StatBox component and constants remain the same)
 const BOX_HEIGHT = Math.round(153 * 0.7);
 const BOX_WIDTH = 245;
 const BOX_WIDTH_EXPANDED = Math.round(BOX_WIDTH * 1.2);
@@ -43,7 +42,7 @@ const StatBox = ({ title, count, imgSrc, width, height, darkMode }) => (
       alignItems: 'flex-start',
       padding: '24px',
       overflow: 'hidden',
-      border: darkMode ? '2px solid #fff' : 'none',
+      border: darkMode ? '2px solid #688CE2' : 'none',
     }}
   >
     <div style={{ fontSize: 16, fontWeight: 500, color: darkMode ? '#fff' : '#222', opacity: 0.7 }}>{title}</div>
@@ -52,13 +51,10 @@ const StatBox = ({ title, count, imgSrc, width, height, darkMode }) => (
   </div>
 );
 
-
 const AdminDashboard = () => {
-  // const { darkMode, sidebarCollapsed } = useOutletContext(); // ❌ Changed this
-  const { darkMode } = useDarkMode(); // ✅ Use the custom hook
-  const sidebarCollapsed = false; // Note: sidebarCollapsed needs to be managed via context or props if needed here
+  const { darkMode } = useDarkMode();
+  const sidebarCollapsed = false;
 
-  // ... (rest of the component logic remains the same)
   const boxWidth = sidebarCollapsed ? BOX_WIDTH_EXPANDED : BOX_WIDTH;
   const boxHeight = sidebarCollapsed ? BOX_HEIGHT_EXPANDED : BOX_HEIGHT;
   const gap = sidebarCollapsed ? 64 : 32;
@@ -100,6 +96,8 @@ const AdminDashboard = () => {
     { name: 'DNP', value: 56, color: '#AB5BF7' },
   ];
 
+  const borderColor = darkMode ? '#688CE2' : 'none';
+
   return (
     <div style={{ background: darkMode ? '#040813' : '#fff', color: darkMode ? '#fff' : '#000', minHeight: '100vh' }}>
       {/* Stat Boxes */}
@@ -130,7 +128,7 @@ const AdminDashboard = () => {
             boxShadow: '6px 6px 10px rgba(27, 89, 248, 0.1)',
             padding: '16px',
             width: '50%',
-            border: darkMode ? '2px solid #fff' : 'none',
+            border: darkMode ? `2px solid ${borderColor}` : 'none',
           }}
         >
           <ResponsiveContainer width="100%" height={300}>
@@ -152,7 +150,7 @@ const AdminDashboard = () => {
             boxShadow: '6px 6px 10px rgba(27, 89, 248, 0.1)',
             padding: '16px',
             width: '50%',
-            border: darkMode ? '2px solid #fff' : 'none',
+            border: darkMode ? `2px solid ${borderColor}` : 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -191,7 +189,7 @@ const AdminDashboard = () => {
           boxShadow: '6px 6px 10px rgba(27, 89, 248, 0.1)',
           padding: '24px',
           width: '100%',
-          border: darkMode ? '2px solid #fff' : 'none',
+          border: darkMode ? `2px solid ${borderColor}` : 'none',
         }}
       >
         <div style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Conversion Rate</div>

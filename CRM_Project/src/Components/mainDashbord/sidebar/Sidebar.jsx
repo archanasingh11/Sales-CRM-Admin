@@ -80,14 +80,15 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           top: 90,
           left: 0,
           boxShadow: '4px 4px 20px rgba(37, 155, 203, 0.3)',
-          border: darkMode ? '1px solid #fff' : '1px solid white',
+          border: darkMode ? '1px solid #688CE2' : '1px solid white',
           borderRadius: '10px 15px 10px 10px',
+          ":hover":{cursor:'pointer'}
         },
       }}
     >
       {/* Top Bar */}
       <Toolbar sx={{ minHeight: 56, px: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', ':hover': { cursor: 'pointer' } }}>
           <IconButton onClick={() => setCollapsed((prev) => !prev)}>
             <MenuIcon style={{ color: darkMode ? '#fff' : '#000' }} />
           </IconButton>
@@ -126,7 +127,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                   width: '98%',
                   mx: 'auto',
                   background: isActive ? '#DDE5F8' : darkMode ? '#111828' : '#fff',
-                  border: isActive ? '2px solid #688CE2' : darkMode ? '2px solid #fff' : 'none',
+                  border: isActive ? '2px solid #688CE2' : darkMode ? '2px solid #688CE2' : 'none',
                   color: isActive ? '#688CE2' : darkMode ? '#fff' : '#000',
                   height: '48px',
                 }}
@@ -160,7 +161,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                     boxShadow: '0 2px 8px rgba(104,140,226,0.08)',
                     mt: 1,
                     mb: 1,
-                    border: darkMode ? '1px solid white' : '2px solid #688CE2',
+                    border: darkMode ? '1px solid #688CE2' : '2px solid #688CE2',
                   }}
                 >
                   {clientList.map((client, cidx) => (
