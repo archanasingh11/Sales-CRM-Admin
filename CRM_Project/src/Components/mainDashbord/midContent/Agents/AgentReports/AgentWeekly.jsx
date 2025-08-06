@@ -7,7 +7,7 @@ const AgentWeekly = () => {
   const navigate = useNavigate();
 
   const containerStyle = {
-    border: `1px solid ${darkMode ? '#fff' : '#000'}`,
+    border: `1px solid ${darkMode ? '#688CE2' : '#000'}`,
     borderRadius: '10px',
     padding: '20px',
     marginTop: '20px',
@@ -19,7 +19,7 @@ const AgentWeekly = () => {
 
   const headingStyle = {
     fontSize: '20px',
-    fontWeight: 500,
+    fontWeight: 700,
   };
 
   const subtextStyle = {
@@ -33,15 +33,16 @@ const AgentWeekly = () => {
     width: '100%',
     borderCollapse: 'collapse',
     marginTop: '20px',
-    border: `1px solid ${darkMode ? '#fff' : '#000'}`,
+    border: `1px solid ${darkMode ? '#688CE2' : '#000'}`,
   };
 
   const thTdStyle = {
     padding: '12px 16px',
     fontSize: '16px',
-    fontWeight: 500,
+    fontWeight: 600,
     textAlign: 'left',
-    borderBottom: `1px solid ${darkMode ? '#fff' : '#000'}`,
+    borderBottom: `1px solid ${darkMode ? '#688CE2' : '#000'}`,
+    color: darkMode ? '#fff' : '#000',
   };
 
   const tdRegular = {
@@ -53,7 +54,7 @@ const AgentWeekly = () => {
     height: '130px',
     width: '100%',
     borderRadius: '5px',
-    border: '1px solid #688CE2',
+    border: `1px solid ${darkMode ? '#688CE2' : '#000'}`,
     backgroundColor: darkMode ? '#111828' : '#fff',
     color: darkMode ? '#fff' : '#000',
     display: 'flex',
@@ -71,7 +72,7 @@ const AgentWeekly = () => {
 
   const titleStyle = {
     fontSize: '20px',
-    fontWeight: 500,
+    fontWeight: 700,
     marginBottom: '10px',
     letterSpacing: '0.15em',
   };
@@ -96,13 +97,30 @@ const AgentWeekly = () => {
     backgroundColor: '#C2E9FB',
     color: '#688CE2',
     border: '1px solid #688CE2',
-    fontWeight: 500,
+    fontWeight: 600,
     cursor: 'pointer',
+  };
+
+  const weeklyLeads = {
+    Mon: [1, 2],
+    Tue: [3],
+    Wed: [4, 5, 6],
+    Thu: [7],
+    Fri: [],
+    Sat: [8],
+  };
+
+  const daySectionStyle = {
+    backgroundColor: darkMode ? '#111828' : '#fff',
+    border: `1px solid ${darkMode ? '#688CE2' : '#000'}`,
+    borderRadius: '10px',
+    padding: '20px',
+    marginTop: '30px',
   };
 
   return (
     <div style={{ width: '100%', padding: '0 20px', boxSizing: 'border-box' }}>
-      {/* Main container */}
+      {/* Table Container */}
       <div style={containerStyle}>
         <h2 style={headingStyle}>Detailed breakdown</h2>
         <p style={subtextStyle}>Performance Summary - Weekly</p>
@@ -119,7 +137,7 @@ const AgentWeekly = () => {
             </tr>
           </thead>
           <tbody>
-            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <tr key={day}>
                 <td style={tdRegular}>{day}</td>
                 <td style={tdRegular}>{Math.floor(Math.random() * 100)}</td>
@@ -141,23 +159,29 @@ const AgentWeekly = () => {
         </table>
       </div>
 
-      {/* Lead Boxes */}
-      {[1, 2, 3].map((id) => (
-        <div key={id} style={boxStyle}>
-          <div style={leftContentStyle}>
-            <div style={titleStyle}>THREE STAR MARINE EXPORTS</div>
-            <div style={nameStyle}>Name : Rama Swami</div>
-            <div style={statusStyle}>Status : Converted</div>
+      {/* Day-wise Lead Boxes */}
+      {Object.entries(weeklyLeads).map(([day, leads]) =>
+        leads.length > 0 ? (
+          <div key={day} style={daySectionStyle}>
+            <h3 style={{ fontWeight: 600 }}>{day}</h3>
+            {leads.map((id) => (
+              <div key={id} style={boxStyle}>
+                <div style={leftContentStyle}>
+                  <div style={titleStyle}>THREE STAR MARINE EXPORTS</div>
+                  <div style={nameStyle}>Name : Rama Swami</div>
+                  <div style={statusStyle}>Status : Converted</div>
+                </div>
+                <button
+                  style={viewButtonStyle}
+                  onClick={() => navigate(`/mainDashboard/lead-details/${id}`)}
+                >
+                  View
+                </button>
+              </div>
+            ))}
           </div>
-
-          <button
-            style={viewButtonStyle}
-            onClick={() => navigate(`/mainDashboard/lead-details/${id}`)}
-          >
-            View
-          </button>
-        </div>
-      ))}
+        ) : null
+      )}
     </div>
   );
 };

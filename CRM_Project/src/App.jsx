@@ -15,6 +15,7 @@ import LeadDetails from './Components/mainDashbord/MainDashboard/leadDetails/Lea
 import Clients from './Components/mainDashbord/midContent/clients/Clients';
 import AgentsList from './Components/mainDashbord/midContent/Agents/AgentsList';
 import AgentReport from './Components/mainDashbord/midContent/Agents/AgentReports';
+import AgentProfile from './Components/mainDashbord/midContent/Agents/AgentProfile';
 
 // MUI Theme Configuration
 const theme = createTheme({
@@ -56,6 +57,7 @@ function App() {
             <Route path="clients/:type" element={<Clients />} />
             <Route path="agents" element={<AgentsList />} />
             <Route path="agent-reports" element={<AgentReport />} />
+            <Route path='agent-profile' element={<AgentProfile />} />
           </Route>
         </Routes>
       </Router>

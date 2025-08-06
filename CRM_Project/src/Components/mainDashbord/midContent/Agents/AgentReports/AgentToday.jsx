@@ -6,8 +6,10 @@ const AgentToday = () => {
   const { darkMode } = useDarkMode();
   const navigate = useNavigate();
 
+  const borderColor = darkMode ? '#688CE2' : '#000';
+
   const containerStyle = {
-    border: `1px solid ${darkMode ? '#fff' : '#000'}`,
+    border: `1px solid ${borderColor}`,
     borderRadius: '10px',
     padding: '20px',
     marginTop: '20px',
@@ -19,34 +21,36 @@ const AgentToday = () => {
 
   const headingStyle = {
     fontSize: '20px',
-    fontWeight: 500,
+    fontWeight: 600, // semibold
   };
 
   const subtextStyle = {
     fontSize: '14px',
-    fontWeight: 400,
+    fontWeight: 500, // medium
     color: darkMode ? '#ccc' : 'gray',
     marginTop: '5px',
   };
 
   const thStyle = {
     fontSize: '16px',
-    fontWeight: 500,
+    fontWeight: 600,
     textAlign: 'left',
     padding: '10px 20px 10px 0',
+    borderBottom: `1px solid ${borderColor}`,
   };
 
   const tdStyle = {
     fontSize: '16px',
-    fontWeight: 400,
+    fontWeight: 500,
     padding: '10px 20px 10px 0',
+    color: darkMode ? '#fff' : '#000',
   };
 
   const boxStyle = {
     height: '130px',
     width: '100%',
     borderRadius: '5px',
-    border: '1px solid #688CE2',
+    border: `1px solid ${darkMode ? '#688CE2' : '#688CE2'}`,
     backgroundColor: darkMode ? '#111828' : '#fff',
     color: darkMode ? '#fff' : '#000',
     display: 'flex',
@@ -64,22 +68,22 @@ const AgentToday = () => {
 
   const titleStyle = {
     fontSize: '20px',
-    fontWeight: 500,
+    fontWeight: 600, // semibold
     marginBottom: '10px',
     letterSpacing: '0.15em', // 15%
   };
 
   const nameStyle = {
     fontSize: '16px',
-    fontWeight: 400,
+    fontWeight: 500, // medium
     marginBottom: '5px',
-    letterSpacing: '0.10em', // 10%
+    letterSpacing: '0.10em',
   };
 
   const statusStyle = {
     fontSize: '16px',
-    fontWeight: 400,
-    letterSpacing: '0.10em', // 10%
+    fontWeight: 500, // medium
+    letterSpacing: '0.10em',
   };
 
   const viewButtonStyle = {
@@ -103,7 +107,7 @@ const AgentToday = () => {
 
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
           <thead>
-            <tr style={{ borderBottom: `1px solid ${darkMode ? '#fff' : '#000'}` }}>
+            <tr>
               <th style={thStyle}>Period</th>
               <th style={thStyle}>Total Calls</th>
               <th style={thStyle}>Converted</th>

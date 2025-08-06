@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from '../../../../context/DarkModeContext';
 import ReportToday from './AgentReports/AgentToday';
 import ReportWeekly from './AgentReports/AgentWeekly';
@@ -9,6 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 const AgentReport = ({ isSidebarCollapsed }) => {
   const { darkMode } = useDarkMode();
   const [selectedView, setSelectedView] = useState('today');
+  const navigate = useNavigate();
 
   const renderReport = () => {
     switch (selectedView) {
@@ -54,14 +56,14 @@ const AgentReport = ({ isSidebarCollapsed }) => {
       backgroundColor: colorSet.background,
       border: `2px solid ${colorSet.border}`,
       color: darkMode ? '#000' : '#333',
-      fontWeight: 500,
+      fontWeight: 600,
       width: '200px',
-      height: '55px', // 10% more height
+      height: '55px',
       borderRadius: '25px',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       boxShadow: selectedView === view ? colorSet.shadow : 'none',
-      marginTop:'5px'
+      marginTop: '5px',
     };
   };
 
@@ -71,7 +73,7 @@ const AgentReport = ({ isSidebarCollapsed }) => {
         width: isSidebarCollapsed ? '100%' : '90%',
         marginLeft: isSidebarCollapsed ? '10%' : 'auto',
         marginRight: isSidebarCollapsed ? '10%' : 'auto',
-        padding: '0 20px 20px 20px', // reduced top margin
+        padding: '0 20px 20px 20px',
         transition: 'all 0.3s ease',
         color: darkMode ? '#fff' : '#000',
       }}
@@ -85,10 +87,10 @@ const AgentReport = ({ isSidebarCollapsed }) => {
           marginTop: '-5px',
           marginBottom: '30px',
           gap: '10px',
-          
         }}
       >
         <div
+          onClick={() => navigate('/mainDashboard/agent-profile')}
           style={{
             width: '30px',
             height: '30px',
@@ -98,6 +100,7 @@ const AgentReport = ({ isSidebarCollapsed }) => {
             alignItems: 'center',
             justifyContent: 'center',
             color: darkMode ? '#111828' : '#fff',
+            cursor: 'pointer',
           }}
         >
           <PersonIcon />
@@ -135,9 +138,7 @@ const AgentReport = ({ isSidebarCollapsed }) => {
       </div>
 
       {/* Report Content */}
-      <div>
-        {renderReport()}
-      </div>
+      <div>{renderReport()}</div>
     </div>
   );
 };
